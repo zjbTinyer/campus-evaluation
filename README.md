@@ -8,6 +8,8 @@
 - 🤖 **NL Search Agent** — 意图识别 → 实体提取 → Tool 选择 → 并行执行 → 回复生成
 - 🔔 **智能通知** — 新评语、请假审批、任务提醒、活动通知，主动推送到首页
 - 📱 **移动端优先** — 微信内嵌浏览器友好的 H5 设计
+- 🎭 **Demo 即产品** — 24条 Mock 数据覆盖全部6大模块，所有页面可交互演示
+- 🔀 **一键切换** — Mock/真实接口 3 种切换方式，无缝衔接后端
 
 ## 🏗️ 技术架构
 
@@ -50,14 +52,15 @@ campus-evaluation/
 │       ├── model/entity/         # 15张表实体
 │       └── security/             # JWT 认证
 │
-└── campus-evaluation-web/        # React 前端 (30 源文件)
+└── campus-evaluation-web/        # React 前端 (33 源文件)
     └── src/
-        ├── pages/search/         # 🔥 搜索页 (默认首页)
+        ├── pages/search/         # 🔥 搜索页 + Dashboard 首页
         ├── pages/                # 评语|荣誉|任务|请假|活动|档案|个人
         ├── components/           # StudentSwitcher, NotificationPanel
         ├── contexts/             # Auth, Student, Notification
-        ├── hooks/                # useAgentQuery, useSSEAgent
-        └── api/                  # Axios + Mock
+        ├── hooks/                # useAgentQuery, useSSEAgent, useSSEAgent
+        ├── api/                  # Axios + Mock + 模式切换
+        └── utils/                # wechat JS-SDK 封装
 ```
 
 ## 🚀 快速启动
@@ -91,6 +94,31 @@ mysql -u root -p -e "CREATE DATABASE campus_evaluation DEFAULT CHARSET utf8mb4"
 # 3. 启动 (Flyway 自动建表)
 mvn spring-boot:run
 ```
+
+### Mock ↔ 真实接口切换
+
+三种切换方式，优先级从高到低：
+
+| 方式 | 操作 | 说明 |
+|------|------|------|
+| 页面开关 | 个人中心 → API 模式 Switch | 运行时即时生效 |
+| URL 参数 | `?mock=false` 强制走真实后端 | 适合开发调试 |
+| 代码常量 | `src/api/index.ts` 中 `USE_MOCK` | 部署时固定模式 |
+
+### Demo 功能覆盖
+
+| 页面 | Mock 数据 | 交互 |
+|------|----------|------|
+| 搜索 `/` | 智能多意图匹配，支持追问 | 自然语言输入 + 结果卡片 + 动作按钮 |
+| Dashboard `/dashboard` | 4模块快速入口 | 任务进度 + 活动预告 + 最新评语 |
+| 评语 `/evaluations` | 8条（语数英·小明+小红） | 科目筛选 + 星级评分 |
+| 荣誉 `/honors` | 5项（市级~校级） | 等级颜色标签 + 分类图标 |
+| 任务 `/tasks` | 6项（含多状态） | 打卡按钮 + 进度条 + 状态筛选 |
+| 请假 `/leaves` | 3条（已批准+待审批） | 状态筛选 + 审批意见 |
+| 请假表单 `/leaves/new` | 完整表单 | 日期选择 + 提交模拟 |
+| 活动 `/activities` | 5个（多类型） | 报名按钮 + 名额进度 + 状态筛选 |
+| 档案 `/archives` | 2份学期档案 | 均分/出勤率/排名卡片 |
+| 个人 `/profile` | 学生列表 + 模式开关 | **Mock/Real 一键切换** |
 
 ### 环境变量
 
