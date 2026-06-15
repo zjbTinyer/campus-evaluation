@@ -1,74 +1,103 @@
 import { useState } from 'react'
-import { Form, Input, Button, message } from 'antd'
-import { PhoneOutlined, LockOutlined, WechatOutlined } from '@ant-design/icons'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function LoginPage() {
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [step, setStep] = useState<'phone' | 'password'>('phone')
   const { login } = useAuth()
 
-  const handlePhoneLogin = async (values: { phone: string; password: string }) => {
+  const handleNext = () => {
+    if (phone.length >= 11) setStep('password')
+  }
+
+  const handleLogin = async () => {
     setLoading(true)
-    try {
-      // TODO: 调用 POST /api/v1/auth/login
-      // 暂时 Mock 登录
-      login('mock-jwt-token', 1, values.phone)
-      message.success('登录成功')
-    } catch {
-      message.error('登录失败')
-    } finally {
+    setTimeout(() => {
+      login('mock-jwt-token', 1, phone)
       setLoading(false)
-    }
+    }, 600)
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gradient-to-b from-blue-50 to-white">
-      <div className="w-full max-w-sm">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="text-4xl mb-2">🏫</div>
-          <h1 className="text-2xl font-bold text-gray-800">校园评价系统</h1>
-          <p className="text-gray-500 text-sm mt-1">关注孩子每一步成长</p>
-        </div>
+    <div className="min-h-screen bg-paper flex flex-col justify-center px-6">
+      {/* Hero */}
+      <div className="text-center mb-12">
+        <div className="text-5xl mb-4">🏫</div>
+        <h1 className="font-display text-hero font-bold text-ink mb-2">
+          校园评价
+        </h1>
+        <p className="font-body text-sm text-ink-light">
+          关注孩子每一步成长
+        </p>
+      </div>
 
-        {/* 手机号登录表单 */}
-        <Form onFinish={handlePhoneLogin} size="large">
-          <Form.Item
-            name="phone"
-            rules={[
-              { required: true, message: '请输入手机号' },
-              { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确' },
-            ]}
-          >
-            <Input prefix={<PhoneOutlined />} placeholder="手机号" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: '请输入密码' }]}
-          >
-            <Input.Password prefix={<LockOutlined />} placeholder="密码" />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" block loading={loading}>
-              登录
-            </Button>
-          </Form.Item>
-        </Form>
+      {/* 登录表单 */}
+      <div className="max-w-sm mx-auto w-full space-y-4">
+        {step === 'phone' ? (
+          <>
+            <label className="block text-xs font-medium text-ink-light mb-1">手机号</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="请输入手机号"
+              maxLength={11}
+              className="w-full px-4 py-3.5 rounded-btn border border-divider bg-surface text-ink placeholder:text-ink-light/50 focus:outline-none search-glow transition-shadow text-base"
+              autoFocus
+            />
+            <button
+              onClick={handleNext}
+              disabled={phone.length < 11}
+              className="w-full py-3.5 rounded-btn bg-vermilion text-white font-medium text-sm
+                         disabled:opacity-40 disabled:cursor-not-allowed
+                         active:scale-[0.98] transition-transform"
+            >
+              下一步
+            </button>
+          </>
+        ) : (
+          <>
+            <label className="block text-xs font-medium text-ink-light mb-1">
+              密码 · {phone}
+              <button onClick={() => setStep('phone')} className="ml-2 text-calm underline">修改</button>
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="请输入密码"
+              className="w-full px-4 py-3.5 rounded-btn border border-divider bg-surface text-ink placeholder:text-ink-light/50 focus:outline-none search-glow transition-shadow text-base"
+              autoFocus
+            />
+            <button
+              onClick={handleLogin}
+              disabled={loading || !password}
+              className="w-full py-3.5 rounded-btn bg-vermilion text-white font-medium text-sm
+                         disabled:opacity-40 disabled:cursor-not-allowed
+                         active:scale-[0.98] transition-transform"
+            >
+              {loading ? '登录中…' : '登录'}
+            </button>
+          </>
+        )}
 
         {/* 微信登录 */}
-        <div className="text-center">
-          <span className="text-gray-400 text-xs">或</span>
-          <Button
-            icon={<WechatOutlined />}
-            block
-            className="mt-3 bg-green-500 text-white border-none hover:bg-green-600"
-          >
-            微信一键登录
-          </Button>
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-divider" /></div>
+          <div className="relative flex justify-center"><span className="bg-paper px-4 text-xs text-ink-light">或</span></div>
         </div>
+
+        <button className="w-full py-3.5 rounded-btn border border-divider bg-surface text-ink text-sm font-medium
+                           active:bg-paper transition-colors flex items-center justify-center gap-2">
+          <span className="text-lg">💬</span> 微信一键登录
+        </button>
       </div>
+
+      <p className="text-center text-2xs text-ink-light mt-8">
+        登录即表示同意服务协议和隐私政策
+      </p>
     </div>
   )
 }

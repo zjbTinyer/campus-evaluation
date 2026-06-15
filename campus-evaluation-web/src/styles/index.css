@@ -2,40 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 全局样式 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ============================================================
+   校园评价 — 基础样式
+   设计理念：学校公告栏 + 纸质便签的温暖触感
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body, #root {
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #F5F0E8;
+  color: #2D2420;
+  font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* 安全区域适配（iPhone 底部 bar） */
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0);
-}
-
-/* 移动端长按选择优化 */
-body {
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
-input, textarea {
-  -webkit-user-select: text;
-  user-select: text;
+/* 安全区域 */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0.5rem); }
+
+/* 分类色线 — 页面记忆点 */
+.border-eval  { border-left: 3px solid #5B8C5A; }
+.border-honor { border-left: 3px solid #C9A84C; }
+.border-task  { border-left: 3px solid #4A6FA5; }
+.border-leave { border-left: 3px solid #8E6CAB; }
+.border-activity { border-left: 3px solid #D4644A; }
+.border-archive   { border-left: 3px solid #8B7E74; }
+
+/* 通知红点呼吸动画 */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.3); }
+}
+.dot-pulse { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* 卡片入场动画 */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-enter {
+  animation: slide-up 0.35s ease-out both;
+}
+.card-enter:nth-child(1) { animation-delay: 0.05s; }
+.card-enter:nth-child(2) { animation-delay: 0.10s; }
+.card-enter:nth-child(3) { animation-delay: 0.15s; }
+.card-enter:nth-child(4) { animation-delay: 0.20s; }
+
+/* 搜索框聚焦光晕 */
+.search-glow:focus-within {
+  box-shadow: 0 0 0 3px rgba(212, 100, 74, 0.15);
 }
 
-/* 滚动条优化 */
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+/* 滚动条隐藏 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 底部导航 — 自定义 tab */
+.nav-tab {
+  @apply flex flex-col items-center justify-center px-3 py-1 text-2xs transition-colors;
+  color: #8B7E74;
 }
+.nav-tab.active { color: #D4644A; }
+
+/* Toast / 标签 */
+.tag-eval    { background: #E8F0E6; color: #5B8C5A; }
+.tag-honor   { background: #FBF3DD; color: #C9A84C; }
+.tag-task    { background: #E6EDF5; color: #4A6FA5; }
+.tag-leave   { background: #F0EAF5; color: #8E6CAB; }
+.tag-activity { background: #FBE8E3; color: #D4644A; }
