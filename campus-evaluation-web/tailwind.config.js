@@ -1,0 +1,18 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  corePlugins: {
+    preflight: false, // 避免与 antd 冲突
+  },
+  theme: {
+    extend: {
+      colors: {
+        primary: '#1677ff',
+        success: '#52c41a',
+        warning: '#faad14',
+        danger: '#ff4d4f',
+      },
+    },
+  },
+  plugins: [],
+}

@@ -1,0 +1,95 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: campus-evaluation-server
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/campus_evaluation?useUnicode=true&characterEncoding=utf8mb4&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: ${DB_PASSWORD:root}
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+
+  redis:
+    host: localhost
+    port: 6379
+    password: ${REDIS_PASSWORD:}
+    database: 0
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 2
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    encoding: utf-8
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+# MyBatis-Plus
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.campuseval.model.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT
+jwt:
+  secret: ${JWT_SECRET:campus-evaluation-jwt-secret-key-2026}
+  expiration: 86400000  # 24小时
+
+# LLM 配置（通义千问 / DeepSeek）
+llm:
+  provider: ${LLM_PROVIDER:qwen}  # qwen / deepseek
+  api-key: ${LLM_API_KEY:}
+  base-url:
+    qwen: https://dashscope.aliyuncs.com/compatible-mode/v1
+    deepseek: https://api.deepseek.com/v1
+  model:
+    fast: ${LLM_FAST_MODEL:qwen-turbo}       # 意图分类（快）
+    default: ${LLM_DEFAULT_MODEL:qwen-plus}   # 回复生成
+
+# Elasticsearch
+elasticsearch:
+  host: localhost
+  port: 9200
+  username: ${ES_USERNAME:}
+  password: ${ES_PASSWORD:}
+  index-name: campus_search_documents
+
+# 文件存储
+oss:
+  endpoint: ${OSS_ENDPOINT:}
+  access-key: ${OSS_ACCESS_KEY:}
+  secret-key: ${OSS_SECRET_KEY:}
+  bucket: campus-evaluation
+  base-url: ${OSS_BASE_URL:}
+
+# 日志
+logging:
+  level:
+    com.campuseval: debug
+    com.campuseval.agent: trace  # Agent 决策日志
