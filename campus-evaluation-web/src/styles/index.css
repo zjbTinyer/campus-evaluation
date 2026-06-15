@@ -3,40 +3,171 @@
 @tailwind utilities;
 
 /* ============================================================
-   校园评价 — 基础样式
-   设计理念：学校公告栏 + 纸质便签的温暖触感
+   三主题系统 — CSS 变量驱动（rgba 逗号语法，全浏览器兼容）
+   切换方式: <html data-theme="scholarly|vibrant|journal">
    ============================================================ */
 
+/* ---- 墨韵书香 (Scholarly Ink) ---- */
+[data-theme="scholarly"] {
+  --c-paper:       254, 253, 248;   /* #FEFDF8 宣纸白 */
+  --c-ink:         30, 34, 48;      /* #1E2230 墨色 */
+  --c-ink-light:   107, 111, 123;   /* #6B6F7B */
+  --c-ink-muted:   154, 158, 170;   /* #9A9EAA */
+  --c-primary:     44, 62, 107;     /* #2C3E6B 靛青 */
+  --c-primary-hover: 30, 45, 84;
+  --c-primary-light: 235, 238, 245; /* #EBEEF5 */
+  --c-seal:        192, 69, 58;     /* #C0453A 朱膘 */
+  --c-sky:         91, 139, 174;    /* #5B8BAE 灰蓝 */
+  --c-gold:        184, 146, 78;    /* #B8924E 泥金 */
+  --c-cat-eval:    74, 140, 111;
+  --c-cat-honor:   184, 146, 78;
+  --c-cat-task:    91, 139, 174;
+  --c-cat-leave:   123, 107, 163;
+  --c-cat-activity: 192, 69, 58;
+  --c-cat-archive: 107, 123, 123;
+  --c-surface:     255, 255, 255;
+  --c-divider:     232, 230, 223;
+  --c-divider-strong: 208, 205, 195;
+  --font-display:  'Noto Serif SC', 'SimSun', 'STSong', serif;
+  --font-body:     'PingFang SC', 'Hiragino Sans GB', system-ui, -apple-system, sans-serif;
+  --radius-card:   0.5rem;
+  --radius-btn:    0.375rem;
+}
+
+/* ---- 生机校园 (Vibrant Campus) ---- */
+[data-theme="vibrant"] {
+  --c-paper:       246, 250, 243;   /* #F6FAF3 */
+  --c-ink:         27, 46, 31;      /* #1B2E1F */
+  --c-ink-light:   107, 123, 109;   /* #6B7B6D */
+  --c-ink-muted:   155, 172, 156;   /* #9BAC9C */
+  --c-primary:     46, 125, 50;     /* #2E7D32 */
+  --c-primary-hover: 37, 107, 41;
+  --c-primary-light: 232, 245, 233; /* #E8F5E9 */
+  --c-seal:        240, 96, 74;     /* #F0604A */
+  --c-sky:         74, 144, 196;    /* #4A90C4 */
+  --c-gold:        232, 168, 38;    /* #E8A826 */
+  --c-cat-eval:    76, 175, 80;
+  --c-cat-honor:   232, 168, 38;
+  --c-cat-task:    74, 144, 196;
+  --c-cat-leave:   155, 126, 196;
+  --c-cat-activity: 240, 96, 74;
+  --c-cat-archive: 107, 139, 122;
+  --c-surface:     255, 255, 255;
+  --c-divider:     228, 237, 226;
+  --c-divider-strong: 200, 213, 198;
+  --font-display:  'Inter', 'PingFang SC', system-ui, sans-serif;
+  --font-body:     'Inter', 'PingFang SC', system-ui, sans-serif;
+  --radius-card:   0.75rem;
+  --radius-btn:    0.625rem;
+}
+
+/* ---- 成长手账 (Growth Journal) ---- */
+[data-theme="journal"] {
+  --c-paper:       247, 245, 242;   /* #F7F5F2 */
+  --c-ink:         45, 40, 38;      /* #2D2826 */
+  --c-ink-light:   130, 120, 115;   /* #827873 */
+  --c-ink-muted:   170, 160, 155;   /* #AAA09B */
+  --c-primary:     123, 94, 167;    /* #7B5EA7 */
+  --c-primary-hover: 105, 78, 148;
+  --c-primary-light: 243, 239, 248; /* #F3EFF8 */
+  --c-seal:        244, 108, 108;   /* #F46C6C */
+  --c-sky:         126, 200, 160;   /* #7EC8A0 */
+  --c-gold:        244, 165, 165;   /* #F4A5A5 */
+  --c-cat-eval:    123, 94, 167;
+  --c-cat-honor:   244, 165, 165;
+  --c-cat-task:    126, 200, 160;
+  --c-cat-leave:   160, 130, 200;
+  --c-cat-activity: 244, 108, 108;
+  --c-cat-archive: 140, 140, 155;
+  --c-surface:     255, 255, 255;
+  --c-divider:     235, 230, 225;
+  --c-divider-strong: 210, 205, 200;
+  --font-display:  'Quicksand', 'PingFang SC', system-ui, sans-serif;
+  --font-body:     'Quicksand', 'PingFang SC', system-ui, sans-serif;
+  --radius-card:   1rem;
+  --radius-btn:    1.5rem;
+}
+
+/* ============================================================
+   全局基础
+   ============================================================ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body, #root {
   height: 100%;
-  background: #F5F0E8;
-  color: #2D2420;
-  font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  background: rgba(var(--c-paper), 1);
+  color: rgba(var(--c-ink), 1);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 安全区域 */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0.5rem); }
 
-/* 分类色线 — 页面记忆点 */
-.border-eval  { border-left: 3px solid #5B8C5A; }
-.border-honor { border-left: 3px solid #C9A84C; }
-.border-task  { border-left: 3px solid #4A6FA5; }
-.border-leave { border-left: 3px solid #8E6CAB; }
-.border-activity { border-left: 3px solid #D4644A; }
-.border-archive   { border-left: 3px solid #8B7E74; }
+/* ============================================================
+   签名元素 — 按主题切换
+   ============================================================ */
 
-/* 通知红点呼吸动画 */
+/* 墨韵书香: 书脊金线 */
+[data-theme="scholarly"] .spine-line::before {
+  content: '';
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(var(--c-gold), 0.25);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 生机校园: 顶部生长色带 */
+[data-theme="vibrant"] .growth-band::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 10;
+  background: linear-gradient(90deg, rgba(var(--c-primary), 1), rgba(var(--c-cat-eval), 1));
+  animation: band-grow 0.6s ease-out both;
+  transform-origin: left center;
+}
+@keyframes band-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+[data-theme="journal"] .card-enter {
+  border-radius: 1rem;
+}
+
+/* ============================================================
+   分类色线
+   ============================================================ */
+.border-eval     { border-left: 3px solid rgba(var(--c-cat-eval), 1); }
+.border-honor    { border-left: 3px solid rgba(var(--c-cat-honor), 1); }
+.border-task     { border-left: 3px solid rgba(var(--c-cat-task), 1); }
+.border-leave    { border-left: 3px solid rgba(var(--c-cat-leave), 1); }
+.border-activity { border-left: 3px solid rgba(var(--c-cat-activity), 1); }
+.border-archive  { border-left: 3px solid rgba(var(--c-cat-archive), 1); }
+
+/* ============================================================
+   分类标签
+   ============================================================ */
+.tag-eval     { background: rgba(var(--c-cat-eval), 0.12); color: rgba(var(--c-cat-eval), 1); }
+.tag-honor    { background: rgba(var(--c-cat-honor), 0.12); color: rgba(var(--c-cat-honor), 1); }
+.tag-task     { background: rgba(var(--c-cat-task), 0.12); color: rgba(var(--c-cat-task), 1); }
+.tag-leave    { background: rgba(var(--c-cat-leave), 0.12); color: rgba(var(--c-cat-leave), 1); }
+.tag-activity { background: rgba(var(--c-cat-activity), 0.12); color: rgba(var(--c-cat-activity), 1); }
+.tag-archive  { background: rgba(var(--c-cat-archive), 0.12); color: rgba(var(--c-cat-archive), 1); }
+
+/* ============================================================
+   动画
+   ============================================================ */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.6; transform: scale(1.3); }
 }
 .dot-pulse { animation: pulse-dot 2s ease-in-out infinite; }
 
-/* 卡片入场动画 */
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -44,30 +175,24 @@ html, body, #root {
 .card-enter {
   animation: slide-up 0.35s ease-out both;
 }
-.card-enter:nth-child(1) { animation-delay: 0.05s; }
-.card-enter:nth-child(2) { animation-delay: 0.10s; }
-.card-enter:nth-child(3) { animation-delay: 0.15s; }
-.card-enter:nth-child(4) { animation-delay: 0.20s; }
+.card-enter:nth-child(1) { animation-delay: 0.03s; }
+.card-enter:nth-child(2) { animation-delay: 0.06s; }
+.card-enter:nth-child(3) { animation-delay: 0.09s; }
+.card-enter:nth-child(4) { animation-delay: 0.12s; }
+.card-enter:nth-child(5) { animation-delay: 0.15s; }
 
-/* 搜索框聚焦光晕 */
-.search-glow:focus-within {
-  box-shadow: 0 0 0 3px rgba(212, 100, 74, 0.15);
+.focus-glow:focus-within {
+  box-shadow: 0 0 0 2px rgba(var(--c-primary), 0.12);
 }
 
-/* 滚动条隐藏 */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* 底部导航 — 自定义 tab */
+/* ============================================================
+   底部导航
+   ============================================================ */
 .nav-tab {
   @apply flex flex-col items-center justify-center px-3 py-1 text-2xs transition-colors;
-  color: #8B7E74;
+  color: rgba(var(--c-ink-muted), 1);
 }
-.nav-tab.active { color: #D4644A; }
-
-/* Toast / 标签 */
-.tag-eval    { background: #E8F0E6; color: #5B8C5A; }
-.tag-honor   { background: #FBF3DD; color: #C9A84C; }
-.tag-task    { background: #E6EDF5; color: #4A6FA5; }
-.tag-leave   { background: #F0EAF5; color: #8E6CAB; }
-.tag-activity { background: #FBE8E3; color: #D4644A; }
+.nav-tab.active { color: rgba(var(--c-primary), 1); }

@@ -20,16 +20,16 @@ export default function ArchivesPage() {
 
               {/* 指标 */}
               <div className="grid grid-cols-3 gap-3 mb-4">
-                <div className="text-center px-2 py-3 rounded-card bg-moss/5">
-                  <div className="font-number text-xl font-bold text-moss">{a.totalScore}</div>
+                <div className="text-center px-2 py-3 rounded-card bg-primary-light">
+                  <div className="font-number text-xl font-bold text-primary">{a.totalScore}</div>
                   <div className="text-2xs text-ink-light mt-0.5">平均分</div>
                 </div>
                 <div className="text-center px-2 py-3 rounded-card bg-gold/5">
                   <div className="font-number text-xl font-bold text-gold">{a.attendanceRate}%</div>
                   <div className="text-2xs text-ink-light mt-0.5">出勤率</div>
                 </div>
-                <div className="text-center px-2 py-3 rounded-card bg-calm/5">
-                  <div className="font-number text-xl font-bold text-calm">#{a.rank}</div>
+                <div className="text-center px-2 py-3 rounded-card bg-sky/5">
+                  <div className="font-number text-xl font-bold text-sky">#{a.rank}</div>
                   <div className="text-2xs text-ink-light mt-0.5">班级排名</div>
                 </div>
               </div>

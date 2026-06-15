@@ -32,7 +32,7 @@ export default function TasksPage() {
           <span className="font-bold text-ink">{completed}/{all.length}</span>
         </div>
         <div className="w-full h-1.5 bg-paper rounded-full overflow-hidden">
-          <div className="h-full bg-moss rounded-full transition-all duration-700"
+          <div className="h-full bg-primary rounded-full transition-all duration-700"
             style={{ width: `${all.length > 0 ? Math.round((completed / all.length) * 100) : 0}%` }} />
         </div>
       </div>
@@ -42,20 +42,20 @@ export default function TasksPage() {
         {TABS.map((t) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex-shrink-0
-              ${t === tab ? 'bg-calm/10 text-calm border border-calm/30' : 'bg-surface text-ink-light border border-divider'}`}
+              ${t === tab ? 'bg-sky/10 text-sky border border-sky/30' : 'bg-surface text-ink-light border border-divider'}`}
           >{t}</button>
         ))}
       </div>
 
       <div className="space-y-3">
         {records.map((t) => (
-          <div key={t.id} className={`border-task rounded-card bg-surface p-3 shadow-card card-enter ${t.status === '已逾期' ? 'ring-1 ring-vermilion/30' : ''}`}>
+          <div key={t.id} className={`border-task rounded-card bg-surface p-3 shadow-card card-enter ${t.status === '已逾期' ? 'ring-1 ring-seal/30' : ''}`}>
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm font-medium text-ink">{t.title}</h3>
                   <span className={`text-2xs px-1.5 py-0.5 rounded-full
-                    ${t.status === '已完成' ? 'tag-eval' : t.status === '已逾期' ? 'text-vermilion bg-vermilion/10' : 'tag-task'}`}>
+                    ${t.status === '已完成' ? 'tag-eval' : t.status === '已逾期' ? 'text-seal bg-seal/10' : 'tag-task'}`}>
                     {t.status}
                   </span>
                 </div>
@@ -64,11 +64,11 @@ export default function TasksPage() {
               {t.status !== '已完成' ? (
                 <button onClick={() => handleCheckin(t.id)}
                   className={`flex-shrink-0 ml-3 px-3 py-1.5 rounded-full text-xs font-medium transition-all active:scale-90
-                    ${checkingIn === t.id ? 'bg-paper text-ink-light' : 'bg-calm text-white'}`}>
+                    ${checkingIn === t.id ? 'bg-paper text-ink-light' : 'bg-sky text-white'}`}>
                   {checkingIn === t.id ? '✓ 已打卡' : '打卡'}
                 </button>
               ) : (
-                <span className="text-moss font-bold flex-shrink-0 ml-3">✓</span>
+                <span className="text-primary font-bold flex-shrink-0 ml-3">✓</span>
               )}
             </div>
             <div className="flex items-center gap-3 text-2xs text-ink-light">

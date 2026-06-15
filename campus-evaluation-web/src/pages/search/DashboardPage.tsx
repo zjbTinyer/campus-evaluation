@@ -36,7 +36,7 @@ export default function DashboardPage() {
           </div>
           <div className="w-full h-1.5 bg-paper rounded-full overflow-hidden">
             <div
-              className="h-full bg-moss rounded-full transition-all duration-500"
+              className="h-full bg-primary rounded-full transition-all duration-500"
               style={{ width: `${Math.round(((tasks.length - pending) / tasks.length) * 100)}%` }}
             />
           </div>
@@ -45,7 +45,7 @@ export default function DashboardPage() {
               {tasks.filter((t) => t.status !== '已完成').slice(0, 2).map((t) => (
                 <div key={t.id} className="flex justify-between text-xs">
                   <span className="text-ink-light">· {t.title}</span>
-                  <span className="text-vermilion">截止 {t.dueDate}</span>
+                  <span className="text-seal">截止 {t.dueDate}</span>
                 </div>
               ))}
             </div>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
               <p className="text-xs text-ink-light leading-relaxed">{e.content.slice(0, 60)}…</p>
             </div>
           ))}
-          <button onClick={() => navigate('/evaluations')} className="text-xs text-calm mt-1">
+          <button onClick={() => navigate('/evaluations')} className="text-xs text-sky mt-1">
             查看全部 →
           </button>
         </div>
@@ -99,11 +99,11 @@ function DashCard({ icon, label, desc, accent, onClick }: {
     <button
       onClick={onClick}
       className={`text-left px-4 py-3 rounded-card bg-surface border border-divider shadow-card
-                  active:scale-[0.97] transition-all ${accent ? 'ring-1 ring-vermilion/20' : ''}`}
+                  active:scale-[0.97] transition-all ${accent ? 'ring-1 ring-primary/20' : ''}`}
     >
       <span className="text-xl">{icon}</span>
       <div className="text-sm font-medium text-ink mt-1">{label}</div>
-      <div className={`text-2xs mt-0.5 ${accent ? 'text-vermilion font-medium' : 'text-ink-light'}`}>{desc}</div>
+      <div className={`text-2xs mt-0.5 ${accent ? 'text-seal font-medium' : 'text-ink-light'}`}>{desc}</div>
     </button>
   )
 }

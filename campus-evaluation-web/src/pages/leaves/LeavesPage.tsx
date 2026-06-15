@@ -5,7 +5,7 @@ import { useCurrentStudent } from '../../hooks/useCurrentStudent'
 
 const TABS = ['全部', '待审批', '已批准', '已驳回']
 const STATUS_CLASS: Record<string, string> = {
-  '待审批': 'text-gold bg-gold/10', '已批准': 'tag-eval', '已驳回': 'text-vermilion bg-vermilion/10',
+  '待审批': 'text-gold bg-gold/10', '已批准': 'tag-eval', '已驳回': 'text-seal bg-seal/10',
 }
 
 export default function LeavesPage() {
@@ -22,7 +22,7 @@ export default function LeavesPage() {
       <div className="flex justify-between items-center mb-3">
         <h2 className="font-display text-lg font-bold text-ink">请假记录</h2>
         <button onClick={() => navigate('/leaves/new')}
-          className="px-3 py-1.5 rounded-full bg-vermilion text-white text-xs font-medium active:scale-95 transition-transform">
+          className="px-3 py-1.5 rounded-full bg-primary text-white text-xs font-medium active:scale-95 transition-transform">
           + 提交请假
         </button>
       </div>
@@ -31,7 +31,7 @@ export default function LeavesPage() {
         {TABS.map((t) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex-shrink-0
-              ${t === tab ? 'bg-orchid/10 text-orchid border border-orchid/30' : 'bg-surface text-ink-light border border-divider'}`}
+              ${t === tab ? 'bg-cat-leave/10 text-cat-leave border border-cat-leave/30' : 'bg-surface text-ink-light border border-divider'}`}
           >{t}</button>
         ))}
       </div>
@@ -41,7 +41,7 @@ export default function LeavesPage() {
           <div key={l.id} className="border-leave rounded-card bg-surface p-3 shadow-card card-enter">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <span className={`text-2xs px-2 py-0.5 rounded-full ${l.leaveType === '病假' ? 'text-vermilion bg-vermilion/10' : l.leaveType === '事假' ? 'tag-task' : 'text-orchid bg-orchid/10'}`}>
+                <span className={`text-2xs px-2 py-0.5 rounded-full ${l.leaveType === '病假' ? 'text-seal bg-seal/10' : l.leaveType === '事假' ? 'tag-task' : 'text-cat-leave bg-cat-leave/10'}`}>
                   {l.leaveType}
                 </span>
                 <span className="text-sm font-medium text-ink">{l.startDate} ~ {l.endDate}</span>

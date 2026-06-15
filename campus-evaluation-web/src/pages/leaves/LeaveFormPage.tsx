@@ -33,7 +33,7 @@ export default function LeaveFormPage() {
             {LEAVE_TYPES.map((t) => (
               <button key={t} onClick={() => setLeaveType(t)}
                 className={`px-4 py-2 rounded-btn text-sm font-medium transition-colors
-                  ${t === leaveType ? 'bg-orchid/10 text-orchid border border-orchid/30' : 'bg-surface text-ink-light border border-divider'}`}
+                  ${t === leaveType ? 'bg-cat-leave/10 text-cat-leave border border-cat-leave/30' : 'bg-surface text-ink-light border border-divider'}`}
               >{t}</button>
             ))}
           </div>
@@ -44,12 +44,12 @@ export default function LeaveFormPage() {
           <div>
             <label className="block text-xs font-medium text-ink-light mb-1">开始日期</label>
             <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink focus:outline-none search-glow" />
+              className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink focus:outline-none focus-glow" />
           </div>
           <div>
             <label className="block text-xs font-medium text-ink-light mb-1">结束日期</label>
             <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink focus:outline-none search-glow" />
+              className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink focus:outline-none focus-glow" />
           </div>
         </div>
 
@@ -59,7 +59,7 @@ export default function LeaveFormPage() {
           <textarea value={reason} onChange={(e) => setReason(e.target.value)}
             placeholder="请详细描述请假原因"
             rows={4} maxLength={500}
-            className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink placeholder:text-ink-light/50 focus:outline-none search-glow resize-none" />
+            className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink placeholder:text-ink-light/50 focus:outline-none focus-glow resize-none" />
           <span className="text-2xs text-ink-light">{reason.length}/500</span>
         </div>
 
@@ -68,11 +68,11 @@ export default function LeaveFormPage() {
           <label className="block text-xs font-medium text-ink-light mb-1">联系电话</label>
           <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
             placeholder="紧急联系电话"
-            className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink placeholder:text-ink-light/50 focus:outline-none search-glow" />
+            className="w-full px-3 py-2.5 rounded-btn border border-divider bg-surface text-sm text-ink placeholder:text-ink-light/50 focus:outline-none focus-glow" />
         </div>
 
         <button onClick={handleSubmit} disabled={submitting || !startDate || !endDate || !reason}
-          className="w-full py-3.5 rounded-btn bg-vermilion text-white font-medium text-sm
+          className="w-full py-3.5 rounded-btn bg-primary text-white font-medium text-sm
                      disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.98] transition-transform">
           {submitting ? '提交中…' : '提交申请'}
         </button>

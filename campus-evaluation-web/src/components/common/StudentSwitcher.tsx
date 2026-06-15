@@ -32,7 +32,7 @@ export default function StudentSwitcher() {
                 key={s.id}
                 onClick={() => { switchStudent(s.id); setOpen(false) }}
                 className={`w-full text-left px-4 py-2.5 text-sm hover:bg-paper transition-colors flex items-center gap-2
-                  ${s.id === currentStudent.id ? 'text-vermilion font-medium' : 'text-ink'}`}
+                  ${s.id === currentStudent.id ? 'text-primary font-medium' : 'text-ink'}`}
               >
                 <span className="w-6 h-6 rounded-full bg-paper flex items-center justify-center text-2xs font-display">
                   {s.name[0]}

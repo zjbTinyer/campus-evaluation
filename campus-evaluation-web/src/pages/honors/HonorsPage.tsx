@@ -2,8 +2,8 @@ import { MOCK_HONORS } from '../../api/mock'
 import { useCurrentStudent } from '../../hooks/useCurrentStudent'
 
 const LEVEL_CLASS: Record<string, string> = {
-  '国家级': 'bg-vermilion/10 text-vermilion', '省级': 'bg-orchid/10 text-orchid',
-  '市级': 'bg-calm/10 text-calm', '区级': 'bg-moss/10 text-moss', '校级': 'bg-gold/10 text-gold',
+  '国家级': 'bg-seal/10 text-seal', '省级': 'bg-cat-leave/10 text-cat-leave',
+  '市级': 'bg-sky/10 text-sky', '区级': 'bg-primary-light text-primary', '校级': 'bg-gold/10 text-gold',
 }
 const CAT_ICONS: Record<string, string> = {
   '竞赛': '🏆', '品德': '🌟', '体育': '⚽', '艺术': '🎨', '学习': '📚', '其他': '🎖️',

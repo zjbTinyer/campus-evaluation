@@ -3,8 +3,8 @@ import { MOCK_ACTIVITIES } from '../../api/mock'
 
 const TABS = ['全部', '报名中', '进行中', '已结束']
 const TYPE_CLASS: Record<string, string> = {
-  '文体活动': 'tag-activity', '家长会': 'text-orchid bg-orchid/10', '开放日': 'tag-task',
-  '讲座': 'tag-eval', '比赛': 'text-vermilion bg-vermilion/10', '社会实践': 'text-gold bg-gold/10',
+  '文体活动': 'tag-activity', '家长会': 'text-cat-leave bg-cat-leave/10', '开放日': 'tag-task',
+  '讲座': 'tag-eval', '比赛': 'text-seal bg-seal/10', '社会实践': 'text-gold bg-gold/10',
 }
 
 export default function ActivitiesPage() {
@@ -26,7 +26,7 @@ export default function ActivitiesPage() {
         {TABS.map((t) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex-shrink-0
-              ${t === tab ? 'bg-vermilion/10 text-vermilion border border-vermilion/30' : 'bg-surface text-ink-light border border-divider'}`}
+              ${t === tab ? 'bg-primary-light text-primary border border-primary/30' : 'bg-surface text-ink-light border border-divider'}`}
           >{t}</button>
         ))}
       </div>
@@ -53,7 +53,7 @@ export default function ActivitiesPage() {
                   <div className="flex items-center gap-2">
                     <span>👥 {a.currentCount}/{a.maxParticipants} 人</span>
                     <div className="flex-1 h-1 bg-paper rounded-full overflow-hidden max-w-24">
-                      <div className="h-full bg-calm rounded-full"
+                      <div className="h-full bg-sky rounded-full"
                         style={{ width: `${Math.round((a.currentCount / a.maxParticipants) * 100)}%` }} />
                     </div>
                   </div>
@@ -61,7 +61,7 @@ export default function ActivitiesPage() {
               </div>
               {a.status === '报名中' && (
                 <button onClick={() => handleRegister(a.id)}
-                  className="w-full py-2 rounded-btn bg-vermilion text-white text-xs font-medium
+                  className="w-full py-2 rounded-btn bg-primary text-white text-xs font-medium
                              active:scale-[0.98] transition-transform disabled:opacity-50"
                   disabled={registering === a.id}>
                   {registering === a.id ? '已报名 ✓' : a.registrationDeadline ? `立即报名（截止${a.registrationDeadline.slice(5)}）` : '立即报名'}

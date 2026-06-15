@@ -21,7 +21,7 @@ export default function EvaluationsPage() {
         {SUBJECTS.map((s) => (
           <button key={s} onClick={() => setSubject(s)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex-shrink-0
-              ${s === subject ? 'bg-verdant/10 text-vermilion border border-vermilion/30' : 'bg-surface text-ink-light border border-divider'}`}
+              ${s === subject ? 'bg-primary-light text-primary border border-primary/30' : 'bg-surface text-ink-light border border-divider'}`}
           >{s}</button>
         ))}
       </div>
