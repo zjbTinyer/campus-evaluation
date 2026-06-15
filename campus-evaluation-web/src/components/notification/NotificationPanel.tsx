@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Popup, List, Badge, Empty } from 'antd-mobile'
+import { Popup, List, Empty } from 'antd-mobile'
 import {
   StarOutline,
   CheckCircleOutline,
@@ -75,14 +75,17 @@ export default function NotificationPanel({ children }: { children: React.ReactN
                 <List.Item
                   key={n.id}
                   prefix={
-                    <Badge dot={!n.isRead}>
+                    <span className="relative inline-block">
                       <span
                         className="text-lg"
                         style={{ color: TYPE_COLORS[n.type] || '#999' }}
                       >
                         {TYPE_ICONS[n.type] || <StarOutline />}
                       </span>
-                    </Badge>
+                      {!n.isRead && (
+                        <span className="absolute -top-0.5 -right-1 w-2 h-2 bg-red-500 rounded-full" />
+                      )}
+                    </span>
                   }
                   description={n.brief}
                   onClick={() => markRead(n.id)}

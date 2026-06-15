@@ -33,5 +33,5 @@ export interface Segment {
 export interface Action {
   label: string
   url: string
-  type: 'navigate' | 'action' | 'confirm'
+  type: string  // 'navigate' | 'action' | 'confirm'
 }

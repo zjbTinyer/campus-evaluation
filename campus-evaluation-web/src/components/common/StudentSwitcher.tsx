@@ -1,6 +1,7 @@
 import { Dropdown } from 'antd'
 import { DownOutlined, UserOutlined } from '@ant-design/icons'
-import { useCurrentStudent, LinkedStudent } from '../../hooks/useCurrentStudent'
+import { useCurrentStudent } from '../../hooks/useCurrentStudent'
+import type { LinkedStudent } from '../../contexts/StudentContext'
 
 /**
  * 学生切换器 — 顶部栏，点击切换当前查看的学生
