@@ -1,4 +1,5 @@
-import { createContext, useState, useCallback } from 'react'
+import { createContext, useState, useCallback, useEffect } from 'react'
+import { MOCK_STUDENTS } from '../api/mock'
 
 export interface LinkedStudent {
   id: string
@@ -15,41 +16,32 @@ export const StudentContext = createContext<{
 } | null>(null)
 
 export function StudentProvider({ children }: { children: React.ReactNode }) {
-  const [linkedStudents, setLinkedStudents] = useState<LinkedStudent[]>(() => {
-    const cached = localStorage.getItem('linkedStudents')
-    return cached ? JSON.parse(cached) : []
-  })
+  const [linkedStudents, setLinkedStudents] = useState<LinkedStudent[]>([])
+  const [currentStudent, setCurrentStudent] = useState<LinkedStudent | null>(null)
 
-  const [currentStudent, setCurrentStudent] = useState<LinkedStudent | null>(() => {
-    const cached = localStorage.getItem('currentStudent')
-    return cached ? JSON.parse(cached) : null
-  })
+  // 初始化 Mock 学生数据
+  useEffect(() => {
+    setLinkedStudents(MOCK_STUDENTS)
+    if (!currentStudent && MOCK_STUDENTS.length > 0) {
+      setCurrentStudent(MOCK_STUDENTS[0])
+    }
+  }, [])
 
   const switchStudent = useCallback((id: string) => {
     const student = linkedStudents.find((s) => s.id === id) || null
     setCurrentStudent(student)
-    if (student) {
-      localStorage.setItem('currentStudent', JSON.stringify(student))
-    }
   }, [linkedStudents])
 
   const setAndPersistStudents = useCallback((students: LinkedStudent[]) => {
     setLinkedStudents(students)
-    localStorage.setItem('linkedStudents', JSON.stringify(students))
-    // 默认选第一个
     if (students.length > 0 && !currentStudent) {
-      switchStudent(students[0].id)
+      setCurrentStudent(students[0])
     }
-  }, [currentStudent, switchStudent])
+  }, [currentStudent])
 
   return (
     <StudentContext.Provider
-      value={{
-        currentStudent,
-        linkedStudents,
-        switchStudent,
-        setLinkedStudents: setAndPersistStudents,
-      }}
+      value={{ currentStudent, linkedStudents, switchStudent, setLinkedStudents: setAndPersistStudents }}
     >
       {children}
     </StudentContext.Provider>

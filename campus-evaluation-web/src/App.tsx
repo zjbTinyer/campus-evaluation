@@ -4,6 +4,7 @@ import MainLayout from './layouts/MainLayout'
 import AuthLayout from './layouts/AuthLayout'
 import LoginPage from './pages/auth/LoginPage'
 import SearchPage from './pages/search/SearchPage'
+import DashboardPage from './pages/search/DashboardPage'
 import EvaluationsPage from './pages/evaluations/EvaluationsPage'
 import HonorsPage from './pages/honors/HonorsPage'
 import TasksPage from './pages/tasks/TasksPage'
@@ -32,6 +33,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/evaluations" element={<EvaluationsPage />} />
         <Route path="/honors" element={<HonorsPage />} />
         <Route path="/tasks" element={<TasksPage />} />
